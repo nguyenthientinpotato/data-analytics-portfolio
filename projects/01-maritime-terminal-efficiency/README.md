@@ -1,6 +1,6 @@
 # International Maritime Logistics & Terminal Efficiency Analysis
 
-An interactive 4-page Power BI dashboard analyzing 15,000 cargo movement events across 50 global terminals and 1,000 vessels (2020–2023). Built to identify operational bottlenecks, quantify the March 2021 Suez blockage impact, analyze shift/vessel age drivers, and target a **15% reduction in cargo turnaround duration**.
+A Power BI dashboard analyzing 15,000 cargo movement events across 50 global terminals and 1,000 vessels (2020–2023). Built to identify operational bottlenecks, quantify the March 2021 Suez blockage impact, analyze shift/vessel age drivers, and target a **15% reduction in cargo turnaround duration**.
 
 > 📌 **Project Brief & Requirements:** For full background, business context, and challenge goals, see [`CHALLENGE_BRIEF.md`](docs/CHALLENGE_BRIEF.md).
 
