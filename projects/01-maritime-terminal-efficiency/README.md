@@ -64,28 +64,28 @@ IF([Avg Move Duration] >= [Network Avg Duration], "Process Review", "Reallocatio
 ### Page 1: Overview
 Network executive summary with KPI cards (`Total Containers`, `Total Movements`, `Avg Duration`, `Containers/Day`), monthly volume trends, and regional hub splits.
 
-![Overview Page](assets/01_overview.png)
+![Overview Page](assets/01_overview%20Page.png)
 
 ---
 
 ### Page 2: Disruption (Suez Canal Blockage & Recovery)
 Timeline analysis tracking weekly duration spikes before, during, and after the March 2021 Suez crisis against baseline metrics.
 
-![Disruption Page](assets/02_disruption.png)
+![Disruption Page](assets/02_disruption%20Page.png)
 
 ---
 
 ### Page 3: Bottleneck (Terminal Bottleneck & Allocation)
 2-axis Quadrant Scatter Plot (`Terminal Load vs Duration`) identifying high-risk terminals alongside a Terminal × Vessel category heatmap matrix.
 
-![Bottleneck Page](assets/03_bottleneck.png)
+![Bottleneck Page](assets/03_bottleneck%20Page.png)
 
 ---
 
 ### Page 4: Drivers & Strategy
 Deep-dive into shift disparities (Day vs Night), vessel age impacts, and regional deviations vs global baselines to formulate optimization strategies.
 
-![Drivers & Strategy Page](assets/04_drivers_strategy.png)
+![Drivers & Strategy Page](assets/04_performance%20Insights.png)
 
 ---
 
