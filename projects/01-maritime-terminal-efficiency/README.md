@@ -17,7 +17,7 @@ Powered by 4 relational CSV tables in `data/`:
 | **Dim Vessel** | `dim_vessel.csv` | 1,000 | `vessel_key` | Vessel specifications & build year |
 | **Dim Time** | `dim_time.csv` | 1,461 | `date_id` | Calendar dates (2020–2023) & shift types |
 
-> 📌 **Data Dictionary:** For full field descriptions and data types, see [`DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md).
+> 📌 **Data Dictionary:** For full field definitions and data types, see [`DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md).
 
 ---
 
@@ -64,32 +64,28 @@ IF([Avg Move Duration] >= [Network Avg Duration], "Process Review", "Reallocatio
 ### Page 1: Overview
 Network executive summary with KPI cards (`Total Containers`, `Total Movements`, `Avg Duration`, `Containers/Day`), monthly volume trends, and regional hub splits.
 
-<!-- Input visual screenshot here: Overview Page -->
-*Image Placeholder: Overview Page*
+![Overview Page](assets/01_overview.png)
 
 ---
 
 ### Page 2: Disruption (Suez Canal Blockage & Recovery)
 Timeline analysis tracking weekly duration spikes before, during, and after the March 2021 Suez crisis against baseline metrics.
 
-<!-- Input visual screenshot here: Disruption Page -->
-*Image Placeholder: Disruption Page*
+![Disruption Page](assets/02_disruption.png)
 
 ---
 
 ### Page 3: Bottleneck (Terminal Bottleneck & Allocation)
 2-axis Quadrant Scatter Plot (`Terminal Load vs Duration`) identifying high-risk terminals alongside a Terminal × Vessel category heatmap matrix.
 
-<!-- Input visual screenshot here: Bottleneck Page -->
-*Image Placeholder: Bottleneck Page*
+![Bottleneck Page](assets/03_bottleneck.png)
 
 ---
 
 ### Page 4: Drivers & Strategy
 Deep-dive into shift disparities (Day vs Night), vessel age impacts, and regional deviations vs global baselines to formulate optimization strategies.
 
-<!-- Input visual screenshot here: Drivers & Strategy Page -->
-*Image Placeholder: Drivers & Strategy Page*
+![Drivers & Strategy Page](assets/04_drivers_strategy.png)
 
 ---
 
