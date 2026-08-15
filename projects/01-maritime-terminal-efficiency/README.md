@@ -1,84 +1,86 @@
 # International Maritime Logistics & Terminal Efficiency Analysis
-A Power BI dashboard analyzing 15,000 cargo movement events across 50 global terminals and 1,000 vessels (2020–2023). Built to identify operational bottlenecks, quantify the March 2021 Suez blockage impact, analyze shift/vessel age drivers, and target a **15% reduction in cargo turnaround duration**.
 
-> 📌 **Project Brief & Requirements:** For full background, business context, and challenge goals, see [`CHALLENGE_BRIEF.md`](docs/CHALLENGE_BRIEF.md).
+A Power BI dashboard analyzing 15,000 cargo movement events across 50 global terminals and 1,000 vessels (2020–2023). Designed to identify bottlenecks, quantify the March 2021 Suez crisis impact, and target a **15% reduction in cargo turnaround duration**.
+
+> 📌 **Project Brief & Data Dictionary:** See [`CHALLENGE_BRIEF.md`](docs/CHALLENGE_BRIEF.md) & [`DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md).
 
 ---
-## 1. Business Problem & Objectives
-Following global trade disruptions and uneven terminal workloads, Global Maritime Solutions needs operational clarity to optimize terminal allocation and reduce cargo handling delays.
 
-* **Data Source:** [Onyx Data DNA Challenge (March - April 2026)](https://datadna.onyxdata.co.uk/challenges/march-april-2026-datadna-international-maritime-logistics-terminal-efficiency-analytics-challenge/)
-* **Primary Goal:** Achieve a 15% reduction in overall cargo turnaround duration.
-* **Core Analytical Questions:**
-  1. **Suez Disruption Impact:** How severe was the March 2021 blockage, which hubs suffered most, and how long was the recovery window?
-  2. **Infrastructure Bottlenecks:** Which terminals operate beyond optimal capacity and create severe network delays?
-  3. **Efficiency Drivers:** How do shift timings (Day vs. Night), regional hubs, and vessel age drive movement duration?
+## 1. Business Problem & Objectives
+
+Optimize terminal allocation and reduce cargo handling delays across global trade routes.
+## 1. Business Problem & Objectives
+
+* **Primary Objective:** Optimize terminal allocation to reduce cargo movement duration by **15%**.
+* **Core Objectives:**
+  * **Suez Impact:** Pinpoint Q1 2021 disruption timeline, regional volume spikes (EMEA/APAC/AMER), and recovery duration.
+  * **Infrastructure Bottlenecks:** Analyze terminal utilization vs. move duration to identify priority terminals for capacity expansion.
+  * **Efficiency Anomalies:** Benchmark vessel performance and isolate primary delay drivers (vessel age, location, shift timing).
+* **Data Source:** [Onyx Data DNA Challenge (Mar–Apr 2026)](https://datadna.onyxdata.co.uk/challenges/march-april-2026-datadna-international-maritime-logistics-terminal-efficiency-analytics-challenge/)
 
 ---
 
 ## 2. Dataset & Architecture
 
-Analyzed by 4 relational CSV datasets in `data/`:
+Star Schema data model connecting 4 relational CSV tables to `fact_cargo_movements`:
 
-| Table | File | Rows | Primary Key | Description |
-|---|---|---|---|---|
-| **Fact Movements** | `fact_cargo_movements.csv` | 15,000 | `movement_id` | Cargo handling events & durations (hours) |
-| **Dim Terminal** | `dim_terminal.csv` | 50 | `terminal_id` | Terminal metadata & regional hubs |
-| **Dim Vessel** | `dim_vessel.csv` | 1,000 | `vessel_key` | Vessel specifications & build year |
-| **Dim Time** | `dim_time.csv` | 1,461 | `date_id` | Calendar dates (2020–2023) & shift types |
-
-* **Data Model:** Star Schema (1:N single-direction relationships connected to `fact_cargo_movements`).
-* **Documentation:** Detailed data dictionary available in [`DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md) and challenge scope in [`CHALLENGE_BRIEF.md`](docs/CHALLENGE_BRIEF.md).
+| Table | File | Rows | Key Metric / Description |
+|---|---|---|---|
+| **Fact Movements** | `fact_cargo_movements.csv` | 15,000 | Handling events & durations (hours) |
+| **Dim Terminal** | `dim_terminal.csv` | 50 | Terminal metadata & regional hubs |
+| **Dim Vessel** | `dim_vessel.csv` | 1,000 | Build year & vessel category |
+| **Dim Time** | `dim_time.csv` | 1,461 | Calendar dates (2020–2023) & shifts |
 
 ---
 
 ## 3. Executive Summary & Key Insights
 
-### 3.1. Disruption Analysis (Suez Canal Blockage)
-* **Impact:** Average handling duration spiked by **+13.00% (+63.15 hours)**, rising from the pre-disruption baseline of **485.86 hours** to **549.00 hours** during the Suez Canal blockage week (March 23–29, 2021).
-* **Recovery:** Network operations required an **8-week recovery window** (March 30 to May 24, 2021) to normalize to baseline efficiency. The **EMEA** regional hub suffered the worst disruption with a **+26.21% (+117.37 hours)** delay spike, followed by **LATAM** (**+18.50% / +97.06 hours**).
+### 3.1. Suez Canal Disruption (Mar 2021)
+* **Duration Impact:** Average handling duration spiked by **+13.00% (+63.15h)**, from **485.86h** baseline to **549.00h**.
+* **Recovery Window:** Network required **8 weeks** (Mar 30 – May 24, 2021) to normalize.
+* **Worst Hit Hubs:** **EMEA** suffered the highest delay spike (**+26.21% / +117.37h**), followed by **LATAM** (**+18.50% / +97.06h**).
 
 ### 3.2. Terminal Bottlenecks & Capacity
-* **High-Risk Terminals:** Identified **15 key terminals** (30% of total network) operating in the High Duration & High Load quadrant (*Quadrant 1*). Top bottleneck facilities include **Angel Castillo** (EMEA: 168.6k containers, 518.62h), **Shawn Martinez** (APAC: 159.8k containers, 521.80h), **Lauren Little** (LATAM: 159.8k containers, 520.57h), and **Deborah Perez** (AMER: 156.0k containers, 530.08h).
-* **Congestion Correlation:** Terminals exceeding average network volume (**>150,400 containers**) experienced an average handling duration of **504.25 hours** (+1.32% overall congestion premium, with peak bottleneck facilities exceeding baseline by up to **+5.8% / +30 hours**).
+* **High-Risk Facilities:** **15 terminals (30% of network)** operate in Quadrant 1 (*High Load & High Duration*). Peak bottlenecks: **Angel Castillo** (EMEA, 518.6h), **Shawn Martinez** (APAC, 521.8h), **Lauren Little** (LATAM, 520.6h), **Deborah Perez** (AMER, 530.1h).
+* **Congestion Premium:** High-volume terminals (**>150.4k containers**) average **504.25h** (+1.32% vs low-volume; peak facilities exceed baseline by **+5.8% / +30h**).
 
-### 3.3. Operational Drivers (Shifts & Vessel Age)
-* **Shift Variance:** Day shifts currently average a handling duration of **505.72 hours** vs. Night shifts at **496.81 hours** (**8.91 hours / 1.76% variance**), reflecting peak daytime berth congestion and shift-level productivity gaps.
-* **Vessel Fleet Impact:** Legacy vessels built before **2005** (specifically the 11–20 year age band averaging **518.72 hours**) require **+6.36% (+31.02 hours)** longer move durations compared to modern container ships built after 2015 (**487.69 hours**).
+### 3.3. Shift & Fleet Performance Drivers
+* **Shift Variance:** Day shifts average **505.72h** vs. Night shifts at **496.81h** (**8.91h / 1.76% gap**).
+* **Fleet Age Impact:** Vessels built before **2005** (11–20 yr age band: **518.72h**) take **+6.36% (+31.02h)** longer than modern vessels built post-2015 (**487.69h**).
 
 ---
 
-## 4. Actionable Recommendations & Targeted Impact
+## 4. Actionable Recommendations
 
-1. **Dynamic Fleet & Volume Reallocation:** Reallocate container volume from high-risk bottleneck terminals (**Angel Castillo**, **Lauren Little**, **Shawn Martinez**) to underutilized neighboring facilities within the same hub, such as **Sara Sanders / Andrew Baldwin** (EMEA) and **Lisa Carter / David Dixon** (LATAM). *(Targeted impact: ~8% duration reduction)*.
-2. **Night Shift Operational Optimization:** Standardize equipment maintenance routines and staffing levels during night shifts to bridge the **8.91-hour** shift variance gap and balance 24/7 terminal throughput. *(Targeted impact: ~5% duration reduction)*.
-3. **Vessel Priority Docking:** Implement priority scheduling and optimized berth allocation for legacy vessels (built before 2005 / 11-20+ years old) to minimize berth occupancy time and eliminate the **+6.36% (+31 hours)** duration penalty. *(Targeted impact: ~2% duration reduction)*.
+1. **Volume Reallocation (~8% target reduction):** Shift cargo from bottleneck terminals (*Angel Castillo, Lauren Little*) to underutilized neighbor facilities (*Sara Sanders, Lisa Carter*).
+2. **Shift Optimization (~5% target reduction):** Standardize night shift equipment maintenance and staffing to bridge the 8.91h shift gap.
+3. **Legacy Vessel Scheduling (~2% target reduction):** Implement priority berth scheduling for legacy vessels (pre-2005) to eliminate the +6.36% duration penalty.
 
 ---
 
 ## 5. Dashboard Overview
 
 ### Page 1: Overview
-Executive summary displaying overall network KPIs (`Total Containers`, `Avg Duration`, `Containers/Day`), monthly volume trends, and regional hub breakdowns.
+Executive summary, core KPIs, volume trends, regional splits.
 ![Overview Page](assets/01_overview%20Page.png)
 
 ### Page 2: Disruption (Suez Canal Impact)
-Timeline analysis tracking weekly duration spikes before, during, and after the March 2021 crisis against baseline metrics.
+Timeline analysis tracking weekly duration spikes & recovery against baseline metrics.
 ![Disruption Page](assets/02_disruption%20Page.png)
 
 ### Page 3: Bottleneck (Terminal & Allocation)
-2-axis Quadrant Scatter Plot (`Terminal Load vs. Duration`) identifying bottlenecked terminals alongside a Terminal x Vessel category heatmap matrix.
+2-axis Quadrant Scatter Plot identifying high-risk terminals & Terminal x Vessel heatmap matrix.
 ![Bottleneck Page](assets/03_bottleneck%20Page.png)
 
 ### Page 4: Drivers & Strategy
-Deep-dive analysis into shift disparities (Day vs. Night), vessel age distribution, and regional hub deviations.
+Deep-dive into shift disparities, vessel age distribution, and regional hub deviations.
 ![Drivers & Strategy Page](assets/04_performance%20Insights.png)
 
 ---
 
 ## 6. Key DAX Logic
 
-Core dynamic quadrant classification used to categorize terminals into operational action categories:
+Dynamic 4-quadrant categorization logic for terminal performance:
 
 ```dax
 -- Dynamic Quadrant Classification for Terminal Efficiency
@@ -97,7 +99,7 @@ SWITCH(
 )
 ```
 
-> 📌 **Full DAX Reference:** For detailed DAX formulas across all report pages (disruption baselines, shift gaps, target metrics), see [`DAX_DOCUMENTATION.md`](docs/DAX_DOCUMENTATION.md).
+> 📌 **Full DAX Reference:** For detailed DAX formulas across all report pages, see [`DAX_DOCUMENTATION.md`](docs/DAX_DOCUMENTATION.md).
 
 ---
 
@@ -116,4 +118,4 @@ SWITCH(
 ## 8. Acknowledgements & References
 
 * **Challenge Host:** [Onyx Data DNA Dataset Challenge](https://onyxdata.co.uk/data-dna-dataset-challenge/)
-* **Project Brief:** [Data DNA March/April 2026 - International Maritime Logistics & Terminal Efficiency Analytics Challenge](https://datadna.onyxdata.co.uk/challenges/march-april-2026-datadna-international-maritime-logistics-terminal-efficiency-analytics-challenge/)
+* **Project Brief:** [Data DNA March/April 2026 - International Maritime Logistics Analytics Challenge](https://datadna.onyxdata.co.uk/challenges/march-april-2026-datadna-international-maritime-logistics-terminal-efficiency-analytics-challenge/)
