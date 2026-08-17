@@ -39,10 +39,18 @@ Star Schema data model connecting 4 relational CSV tables to fact_cargo_movement
 The dataset was created for a data challenge and is not based on actual terminal operations data. Before treating any figures below as real KPIs, be aware of these five points about the raw files:
 
 1. **Vessel build year data contains inaccuracies.** Although specifications require build years from 1990 to 2023, the file includes vessels dating back to 1900. Approximately 72% of the 1000 vessels are listed with build years before 1990. These unrealistic entries are grouped into an "Invalid" age band on page 4, "Drivers & Strategy," rather than being removed or estimated. Age-related findings, such as the +6.36% slowdown for older vessels, only include those built between 1990 and 2023.
+   ![Inaccurated Vessel build year](assets/3_1_Inaccurated%20Vessel%20build%20year.png)
+
 2. **Route geometry provides no meaningful data.** All 15,000 rows in fact_cargo_movements share the same coordinate pair, so actual port-to-port routing is not represented. As a result, this data was excluded from the dashboard, and no lane or trade-route maps were created.
+   ![Route geometry limit](assets/3_2_Route%20geometry%20limit.png)
+
 3. **Move duration is capped, not free-running.** move_duration ranges from ~0.03h to ~999.99h with a hard ceiling near 1,000h. Rows at or near that ceiling are data-generation artifacts, not stuck shipments or real delays. They should not be read as operational outliers. Anomaly checks exclude rows within 1h of the cap and flag durations outside the normal spread instead of sorting by highest raw hours.
+   ![Move Duration limit](assets/3_3_Move%20Duration%20limit.png)
+
 4. **Terminal capacity is assumed, not measured.** The raw data lacks a terminal_capacity field, so "high risk" terminals on the Bottleneck page are not benchmarked against real berth or yard limits. Capacity is approximated as 120% of a terminal's average container load over the period. Any terminal running above that line is flagged as near or over effective capacity. Replace with real capacity figures (berth slots, yard TEU limit, crane-hours) if this model is rebuilt on live ops data.
+
 5. **Year-over-year swings reflect the dataset, not the business.** YoY comparisons on the Overview page mostly track how synthetic rows are spread across 2021–2024, not real cargo growth. Treat them as a data-shape note, not a growth story.
+   ![YoY Comparison limit](assets/3_5_YoY%20Comparision%20limit.png)
 
 ---
 
