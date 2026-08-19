@@ -1,0 +1,350 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "d177420e54091db59a0e",
+  "position": {
+    "x": 236.66666666666666,
+    "y": 198.88888888888889,
+    "z": 14000,
+    "height": 292.22222222222223,
+    "width": 604.44444444444446,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_terminal"
+                    }
+                  },
+                  "Property": "terminal_name"
+                }
+              },
+              "queryRef": "dim_terminal.terminal_name",
+              "nativeQueryRef": "terminal_name",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_terminal"
+                    }
+                  },
+                  "Property": "regional_hub"
+                }
+              },
+              "queryRef": "dim_terminal.regional_hub",
+              "nativeQueryRef": "regional_hub"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Movements"
+                }
+              },
+              "queryRef": "_Measures.Total Movements",
+              "nativeQueryRef": "Total Movements"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Movements"
+                }
+              },
+              "queryRef": "_Measures.Total Movements",
+              "nativeQueryRef": "Total Movements"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Move Duration"
+                }
+              },
+              "queryRef": "_Measures.Avg Move Duration",
+              "nativeQueryRef": "Avg Move Duration"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Containers per Day"
+                }
+              },
+              "queryRef": "_Measures.Containers per Day",
+              "nativeQueryRef": "Containers per Day"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Terminal Action"
+                }
+              },
+              "queryRef": "_Measures.Terminal Action",
+              "nativeQueryRef": "Terminal Action"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Containers per Terminal"
+                }
+              },
+              "queryRef": "_Measures.Avg Containers per Terminal",
+              "nativeQueryRef": "Avg Containers per Terminal"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Containers"
+                }
+              },
+              "queryRef": "_Measures.Total Containers",
+              "nativeQueryRef": "Total Containers",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Move Duration"
+                }
+              },
+              "queryRef": "_Measures.Avg Move Duration",
+              "nativeQueryRef": "Avg Move Duration"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "referenceLine": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "displayName": {
+              "expr": {
+                "Literal": {
+                  "Value": "'AVG Total Containers'"
+                }
+              }
+            },
+            "value": {
+              "expr": {
+                "Aggregation": {
+                  "Expression": {
+                    "SelectRef": {
+                      "ExpressionName": "_Measures.Total Containers"
+                    }
+                  },
+                  "Function": 1
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Containers",
+            "id": "1"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "displayName": {
+              "expr": {
+                "Literal": {
+                  "Value": "'AVG Movement Duration'"
+                }
+              }
+            },
+            "value": {
+              "expr": {
+                "Aggregation": {
+                  "Expression": {
+                    "SelectRef": {
+                      "ExpressionName": "_Measures.Avg Move Duration"
+                    }
+                  },
+                  "Function": 1
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Avg Move Duration",
+            "id": "2"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Terminal Load vs Movement Duration'"
+                }
+              }
+            },
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Which terminals combine high workload with longer movement times?'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "border": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0D1B2A'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

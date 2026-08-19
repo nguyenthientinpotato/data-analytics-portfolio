@@ -1,0 +1,132 @@
+table fact_cargo_movements
+	lineageTag: ad3f7169-7a96-48a2-8328-3d532a6a81e1
+
+	column movement_id
+		dataType: string
+		lineageTag: 53d6869d-004c-4c61-a202-3a824cad1369
+		summarizeBy: none
+		sourceColumn: movement_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_id
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 10b055fa-4259-4d7c-a3b6-488ef17a0525
+		summarizeBy: none
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column vessel_key
+		dataType: string
+		lineageTag: fac6dd0b-9444-4a52-9acf-a665127f1cca
+		summarizeBy: none
+		sourceColumn: vessel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column vessel_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a91f39bd-af87-413f-956d-b2a126e496ef
+		summarizeBy: sum
+		sourceColumn: vessel_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column vessel_category
+		dataType: string
+		lineageTag: d556d454-a299-48fd-b9f0-131c0868ea07
+		summarizeBy: none
+		sourceColumn: vessel_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column terminal_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ebac891-1c48-4a40-a211-3556a72a588b
+		summarizeBy: none
+		sourceColumn: terminal_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column container_count
+		dataType: int64
+		formatString: 0
+		lineageTag: b645c039-2846-4341-9e39-2810cb779dbf
+		summarizeBy: sum
+		sourceColumn: container_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column move_duration
+		dataType: double
+		formatString: 0.00
+		lineageTag: 435f2997-96ed-4cb8-9406-d27d6530095d
+		summarizeBy: sum
+		sourceColumn: move_duration
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_geometry
+		dataType: string
+		lineageTag: 14cbab1d-2c9c-4a54-b0de-24e9789d78ca
+		summarizeBy: none
+		sourceColumn: route_geometry
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vessel Age at Movement' =
+			
+			YEAR(RELATED(dim_time[date_id]))
+			    - RELATED(dim_vessel[build_year])
+		formatString: 0
+		lineageTag: 7c836167-c00c-425d-ac89-fed734880ae3
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vessel Age Band' =
+			
+			SWITCH(
+			    TRUE(),
+			    fact_cargo_movements[Vessel Age at Movement] < 0,
+			        "Invalid",
+			
+			    fact_cargo_movements[Vessel Age at Movement] <= 10,
+			        "0–10",
+			
+			    fact_cargo_movements[Vessel Age at Movement] <= 20,
+			        "11–20",
+			
+			    fact_cargo_movements[Vessel Age at Movement] <= 30,
+			        "21–30",
+			
+			    fact_cargo_movements[Vessel Age at Movement] <= 50,
+			        "31–50",
+			
+			    "50+"
+			)
+		lineageTag: 1fb0d491-c6c3-455f-a939-f2fa094f6bce
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_cargo_movements = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\nguye\OneDrive\Desktop\Study\5. Power BI\Mar-Apr-2026-DataDNA-Dataset-Challenge-International-Maritime-Logistics-Terminal-Efficiency\International Maritime Logistics Terminal Efficiency\data\fact_cargo_movements.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"vessel_id", Int64.Type}, {"terminal_id", Int64.Type}, {"container_count", Int64.Type}, {"date_id", type date}, {"move_duration", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

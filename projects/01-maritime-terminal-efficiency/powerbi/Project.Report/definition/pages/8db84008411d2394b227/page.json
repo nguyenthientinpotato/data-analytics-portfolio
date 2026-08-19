@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "8db84008411d2394b227",
+  "displayName": "Bottleneck",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3641c863284d9c76dd17",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_time"
+              }
+            },
+            "Property": "date_id"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "c7308f0ec2de38498c11",
+    "type": "Default",
+    "parameters": []
+  }
+}

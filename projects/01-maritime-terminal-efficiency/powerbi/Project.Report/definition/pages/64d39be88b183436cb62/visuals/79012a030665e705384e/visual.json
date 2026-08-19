@@ -1,0 +1,403 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "79012a030665e705384e",
+  "position": {
+    "x": 236.25,
+    "y": 452.5,
+    "z": 17000,
+    "height": 267.5,
+    "width": 1043.75,
+    "tabOrder": 17000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_cargo_movements"
+                    }
+                  },
+                  "Property": "movement_id"
+                }
+              },
+              "queryRef": "fact_cargo_movements.movement_id",
+              "nativeQueryRef": "movement_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_cargo_movements"
+                    }
+                  },
+                  "Property": "date_id"
+                }
+              },
+              "queryRef": "fact_cargo_movements.date_id",
+              "nativeQueryRef": "date_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_vessel"
+                    }
+                  },
+                  "Property": "vessel_key"
+                }
+              },
+              "queryRef": "dim_vessel.vessel_key",
+              "nativeQueryRef": "vessel_key"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_vessel"
+                    }
+                  },
+                  "Property": "vessel_name"
+                }
+              },
+              "queryRef": "dim_vessel.vessel_name",
+              "nativeQueryRef": "vessel_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_terminal"
+                    }
+                  },
+                  "Property": "terminal_name"
+                }
+              },
+              "queryRef": "dim_terminal.terminal_name",
+              "nativeQueryRef": "terminal_name"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Containers"
+                }
+              },
+              "queryRef": "_Measures.Total Containers",
+              "nativeQueryRef": "Total Containers"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_cargo_movements"
+                        }
+                      },
+                      "Property": "move_duration"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(fact_cargo_movements.move_duration)",
+              "nativeQueryRef": "Average of move_duration"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "fact_cargo_movements"
+                      }
+                    },
+                    "Property": "move_duration"
+                  }
+                },
+                "Function": 1
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "184.42857222625616D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fact_cargo_movements.date_id"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "f1478bb300ac7bc23bcc",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_cargo_movements"
+              }
+            },
+            "Property": "date_id"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "1691ce9161a49e7982c6",
+        "ordinal": 1,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_cargo_movements"
+              }
+            },
+            "Property": "movement_id"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c1fd679b962307eb426a",
+        "ordinal": 2,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_cargo_movements"
+              }
+            },
+            "Property": "move_duration"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "c3cb5a228a309aa1b126",
+        "ordinal": 3,
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_cargo_movements"
+                  }
+                },
+                "Property": "move_duration"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "7721a83135a7c4905104",
+        "ordinal": 4,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_vessel"
+              }
+            },
+            "Property": "vessel_key"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "ccf9e366b09046b7e963",
+        "ordinal": 5,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_terminal"
+              }
+            },
+            "Property": "terminal_id"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "59fb40d1e697d8d785c7",
+        "ordinal": 6,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Total Containers"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "92b37c9b60e010200aa7",
+        "ordinal": 7,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "P90 Move Duration"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "7c9c68ba431923526444",
+        "ordinal": 8,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "High Duration Flag"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "_",
+              "Entity": "_Measures",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 0,
+                  "Left": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "_"
+                        }
+                      },
+                      "Property": "High Duration Flag"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "1L"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "7eb4c3a972070c652ee3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_vessel"
+              }
+            },
+            "Property": "vessel_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c40540fd481689c23a3f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_terminal"
+              }
+            },
+            "Property": "terminal_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "fae77338cf8e77a6a078",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_cargo_movements"
+                  }
+                },
+                "Property": "move_duration"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

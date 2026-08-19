@@ -1,0 +1,50 @@
+table dim_terminal
+	lineageTag: ee7adcd5-146b-4e3c-a5ef-52a3c0d2fd06
+
+	column terminal_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c7370fdd-c73c-4c50-b353-24102ce5d06c
+		summarizeBy: none
+		sourceColumn: terminal_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column terminal_name
+		dataType: string
+		lineageTag: a801cd99-5156-4e7c-adbf-6e27566d9ea1
+		summarizeBy: none
+		sourceColumn: terminal_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column port_location
+		dataType: string
+		lineageTag: 0c461eb6-f40a-4918-9877-601d3451d59d
+		summarizeBy: none
+		sourceColumn: port_location
+
+		annotation SummarizationSetBy = Automatic
+
+	column regional_hub
+		dataType: string
+		lineageTag: 5137fb73-f5be-453e-b28c-92ecc9502ced
+		summarizeBy: none
+		sourceColumn: regional_hub
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_terminal = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\nguye\OneDrive\Desktop\Study\5. Power BI\Mar-Apr-2026-DataDNA-Dataset-Challenge-International-Maritime-Logistics-Terminal-Efficiency\International Maritime Logistics Terminal Efficiency\data\dim_terminal.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"terminal_id", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

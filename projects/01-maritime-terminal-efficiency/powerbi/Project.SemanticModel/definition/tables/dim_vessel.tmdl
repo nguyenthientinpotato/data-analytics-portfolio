@@ -1,0 +1,79 @@
+table dim_vessel
+	lineageTag: 0abf20dc-09a9-4544-b616-4c04c7c47699
+
+	measure 'Invalid Vessel %' =
+			
+			DIVIDE(
+			    CALCULATE( COUNTROWS( dim_vessel ), dim_vessel[build_year] < 1990 ),
+			    CALCULATE( COUNTROWS( dim_vessel ), REMOVEFILTERS( dim_vessel ) )
+			)
+		lineageTag: ad86acd8-9e12-4ea6-bb8d-73c4f1dfd962
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vessel_key
+		dataType: string
+		lineageTag: 63678f3e-8165-4e82-bf7d-db992e8c49f0
+		summarizeBy: none
+		sourceColumn: vessel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column vessel_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b4ff8209-73c9-48c1-bec1-32064952e22a
+		summarizeBy: none
+		sourceColumn: vessel_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column vessel_name
+		dataType: string
+		lineageTag: 16adfc1f-a5ee-48b0-a243-15bee2276247
+		summarizeBy: none
+		sourceColumn: vessel_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column vessel_category
+		dataType: string
+		lineageTag: 531151d9-c25c-4ea9-b305-904244dc7b8a
+		summarizeBy: none
+		sourceColumn: vessel_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column build_year
+		dataType: int64
+		formatString: 0
+		lineageTag: a6dd2ce9-7afe-4967-be22-e17adfdc430a
+		summarizeBy: none
+		sourceColumn: build_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Build Decade' = ```
+			
+			            IF(dim_vessel[build_year] < 1990, "<1990",
+			            FORMAT(FLOOR(dim_vessel[build_year]/10,1)*10, "0") & "s")
+			```
+		lineageTag: f3251298-6dbc-43e5-b521-628c9dd1e897
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_vessel = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\nguye\OneDrive\Desktop\Study\5. Power BI\Mar-Apr-2026-DataDNA-Dataset-Challenge-International-Maritime-Logistics-Terminal-Efficiency\International Maritime Logistics Terminal Efficiency\data\dim_vessel.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"vessel_id", Int64.Type}, {"build_year", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

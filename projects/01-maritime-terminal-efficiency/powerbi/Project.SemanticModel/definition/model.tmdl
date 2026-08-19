@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dim_terminal","dim_time","dim_vessel","fact_cargo_movements"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_terminal
+ref table dim_time
+ref table DateTableTemplate_9680a67b-af2b-40b3-8c54-d91d70a37db8
+ref table LocalDateTable_423f0feb-832b-41d8-9133-ae28af97c06a
+ref table dim_vessel
+ref table fact_cargo_movements
+ref table _Measures
+ref table _Format_Measures
+ref table LocalDateTable_3b83b1ec-f641-43c3-9711-c7aff407f61e
+ref table _DQ_Measures
+
+ref cultureInfo en-US
+

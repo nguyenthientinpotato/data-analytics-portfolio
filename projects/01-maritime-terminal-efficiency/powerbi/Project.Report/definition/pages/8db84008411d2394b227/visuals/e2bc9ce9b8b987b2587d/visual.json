@@ -1,0 +1,139 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "e2bc9ce9b8b987b2587d",
+  "position": {
+    "x": 610.19809136097467,
+    "y": 489.36678614097968,
+    "z": 17000,
+    "height": 230.78779297019042,
+    "width": 669.40543091877225,
+    "tabOrder": 17000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_terminal"
+                    }
+                  },
+                  "Property": "terminal_name"
+                }
+              },
+              "queryRef": "dim_terminal.terminal_name",
+              "nativeQueryRef": "terminal_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_terminal"
+                    }
+                  },
+                  "Property": "regional_hub"
+                }
+              },
+              "queryRef": "dim_terminal.regional_hub",
+              "nativeQueryRef": "regional_hub"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Containers"
+                }
+              },
+              "queryRef": "_Measures.Total Containers",
+              "nativeQueryRef": "Total Containers"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Movements"
+                }
+              },
+              "queryRef": "_Measures.Total Movements",
+              "nativeQueryRef": "Total Movements"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Move Duration"
+                }
+              },
+              "queryRef": "_Measures.Avg Move Duration",
+              "nativeQueryRef": "Avg Move Duration"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Containers per Day"
+                }
+              },
+              "queryRef": "_Measures.Containers per Day",
+              "nativeQueryRef": "Containers per Day"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Terminal Action"
+                }
+              },
+              "queryRef": "_Measures.Terminal Action",
+              "nativeQueryRef": "Terminal Action"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_terminal"
+                  }
+                },
+                "Property": "terminal_name"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

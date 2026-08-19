@@ -1,0 +1,23 @@
+relationship 279c668d-c64d-48ac-a5cd-3aad2975be8a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_time.date_id
+	toColumn: LocalDateTable_423f0feb-832b-41d8-9133-ae28af97c06a.Date
+
+relationship AutoDetected_48584dc8-fd47-45aa-ac27-f64169a161b3
+	fromColumn: fact_cargo_movements.terminal_id
+	toColumn: dim_terminal.terminal_id
+
+relationship AutoDetected_580e51b6-b3a1-45c5-97ba-323f3355b8e4
+	crossFilteringBehavior: bothDirections
+	fromColumn: fact_cargo_movements.vessel_key
+	toColumn: dim_vessel.vessel_key
+
+relationship 58c3566e-16e4-a399-ee1c-619f35c6d3bb
+	fromColumn: fact_cargo_movements.date_id
+	toColumn: dim_time.date_id
+
+relationship ca4221d1-216e-461d-b7d5-8d6055571c95
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_time.'Week Start'
+	toColumn: LocalDateTable_3b83b1ec-f641-43c3-9711-c7aff407f61e.Date
+

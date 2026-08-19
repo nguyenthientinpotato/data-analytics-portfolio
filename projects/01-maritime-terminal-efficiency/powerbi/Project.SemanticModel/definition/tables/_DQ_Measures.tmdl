@@ -1,0 +1,86 @@
+table _DQ_Measures
+	lineageTag: 307addc8-2a6c-460a-a0dc-d5248c0de07c
+
+	measure 'Duration Bucket (100h)' =
+			
+			VAR _b = FLOOR(SUM(fact_cargo_movements[move_duration]) / 100, 1 ) * 100
+			RETURN FORMAT( _b, "0" ) & "–" & FORMAT( _b + 100, "0" ) & "h"
+		lineageTag: 33070a30-cad8-494a-a291-ad8dda1846b6
+
+	measure 'Duration Bucket Order' = FLOOR(SUM(fact_cargo_movements[move_duration]) / 100, 1 )
+		formatString: 0
+		lineageTag: 2b1ec007-037e-4d88-80ae-8fbfa2a2efb8
+
+	measure 'DQ Vessels Total' = COUNTROWS( dim_vessel )
+		formatString: 0
+		lineageTag: 107df060-02e6-4d46-8141-cb5016aa750c
+
+	measure 'DQ Build Year Min' = MIN( dim_vessel[build_year] )
+		formatString: 0
+		lineageTag: 30496d40-a20a-4a0c-9abb-1f7c7a192651
+
+	measure 'DQ Build Year Max' = MAX( dim_vessel[build_year] )
+		formatString: 0
+		lineageTag: 5eeb98f0-1859-4b9e-a658-2169511e833f
+
+	measure 'DQ Vessels Below Spec' =
+			
+			CALCULATE( COUNTROWS( dim_vessel ), dim_vessel[build_year] < 1990 )
+		formatString: 0
+		lineageTag: 23078b22-5a99-4904-ba6d-679fe3133097
+
+	measure 'DQ Vessels Below Spec %' =
+			
+			DIVIDE( [DQ Vessels Below Spec], [DQ Vessels Total] )
+		lineageTag: 558290fc-df24-4f07-b94b-675f62872dd6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'DQ Movements Age Negative' =
+			
+			CALCULATE( COUNTROWS( fact_cargo_movements ), fact_cargo_movements[Vessel Age Band] = "Invalid" )
+		formatString: 0
+		lineageTag: 9120fc99-2e74-4c89-b908-afae042ebce5
+
+	measure 'DQ Duration Year Spread' =
+			
+			MAXX( VALUES( dim_time[fiscal_year] ), [Avg Move Duration] )
+			    - MINX( VALUES( dim_time[fiscal_year] ), [Avg Move Duration] )
+		lineageTag: 8381eb8d-682f-4a92-9f1d-79a0cf1202d4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'DQ Duration Year Spread %' =
+			
+			DIVIDE( [DQ Duration Year Spread], [Avg Move Duration] )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2c42fc61-b508-493d-bf60-2954ea518fa6
+
+	measure 'DQ Row Growth 2021 to 2024 %' =
+			
+			DIVIDE(MAXX( VALUES( dim_time[fiscal_year] ), [Total Movements] ) - MINX( VALUES( dim_time[fiscal_year] ), [Total Movements] ), MINX( VALUES( dim_time[fiscal_year] ), [Total Movements] ) )
+		formatString: 0.0000
+		lineageTag: 2124820d-aea6-4aca-9fe9-8ced60d70093
+
+	column _Dummy
+		formatString: 0
+		lineageTag: cbf55e6f-9022-4d63-8af1-18d9a71320e5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [_Dummy]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _DQ_Measures = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "_Dummy", INTEGER,
+				    {
+				        { 1 }
+				    }
+				)
+
+	annotation PBI_Id = a1b250d80a5141db8767f39a434d39a3
+

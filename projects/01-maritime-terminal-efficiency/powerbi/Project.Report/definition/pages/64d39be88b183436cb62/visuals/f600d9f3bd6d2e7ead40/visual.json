@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "f600d9f3bd6d2e7ead40",
+  "position": {
+    "x": 691.25,
+    "y": 36.25,
+    "z": 11000,
+    "height": 48.75,
+    "width": 588.75,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Identify high-load terminals with longer movement times and highlight opportunities for capacity review or workload reallocation.",
+                    "textStyle": {
+                      "fontSize": "10.5pt",
+                      "color": "#1e5d8f"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

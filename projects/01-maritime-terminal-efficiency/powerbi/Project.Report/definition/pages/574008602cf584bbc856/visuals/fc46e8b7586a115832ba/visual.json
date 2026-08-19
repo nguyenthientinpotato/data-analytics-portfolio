@@ -1,0 +1,214 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "fc46e8b7586a115832ba",
+  "position": {
+    "x": 541.25,
+    "y": 0,
+    "z": 2000,
+    "height": 348.75,
+    "width": 533.75,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_DQ_Measures"
+                    }
+                  },
+                  "Property": "DQ Build Year Max"
+                }
+              },
+              "queryRef": "_DQ_Measures.DQ Build Year Max",
+              "nativeQueryRef": "DQ Build Year Max"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_DQ_Measures"
+                    }
+                  },
+                  "Property": "DQ Build Year Min"
+                }
+              },
+              "queryRef": "_DQ_Measures.DQ Build Year Min",
+              "nativeQueryRef": "DQ Build Year Min"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_DQ_Measures"
+                    }
+                  },
+                  "Property": "DQ Movements Age Negative"
+                }
+              },
+              "queryRef": "_DQ_Measures.DQ Movements Age Negative",
+              "nativeQueryRef": "DQ Movements Age Negative"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_DQ_Measures"
+                    }
+                  },
+                  "Property": "DQ Vessels Below Spec"
+                }
+              },
+              "queryRef": "_DQ_Measures.DQ Vessels Below Spec",
+              "nativeQueryRef": "DQ Vessels Below Spec"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_DQ_Measures"
+                    }
+                  },
+                  "Property": "DQ Vessels Below Spec %"
+                }
+              },
+              "queryRef": "_DQ_Measures.DQ Vessels Below Spec %",
+              "nativeQueryRef": "DQ Vessels Below Spec %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_DQ_Measures"
+                    }
+                  },
+                  "Property": "DQ Vessels Total"
+                }
+              },
+              "queryRef": "_DQ_Measures.DQ Vessels Total",
+              "nativeQueryRef": "DQ Vessels Total"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_DQ_Measures"
+                  }
+                },
+                "Property": "DQ Build Year Max"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4423617917a41e23498b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_DQ_Measures"
+              }
+            },
+            "Property": "DQ Build Year Max"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d115367bf521ab42e915",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_DQ_Measures"
+              }
+            },
+            "Property": "DQ Build Year Min"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f53675eeabac4d708cf4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_DQ_Measures"
+              }
+            },
+            "Property": "DQ Movements Age Negative"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6fd590dae74549ad95a6",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_DQ_Measures"
+              }
+            },
+            "Property": "DQ Vessels Below Spec"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "8de77d349072473d1da5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_DQ_Measures"
+              }
+            },
+            "Property": "DQ Vessels Below Spec %"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "72f21781bf1ef66b1ab0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_DQ_Measures"
+              }
+            },
+            "Property": "DQ Vessels Total"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

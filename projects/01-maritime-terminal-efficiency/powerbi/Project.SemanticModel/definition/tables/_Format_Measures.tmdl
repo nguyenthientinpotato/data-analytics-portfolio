@@ -1,0 +1,117 @@
+table _Format_Measures
+	lineageTag: 1f87f61b-3d35-424f-a602-228e567e1775
+
+	measure 'Total Containers YoY Color' =
+			
+			SWITCH(
+			    TRUE(),
+			    [Total Containers YoY %] > 0, "#16A34A",
+			    [Total Containers YoY %] < 0, "#DC2626",
+			    "#6B7280"
+			)
+		lineageTag: 2f9fe83b-3e31-4ba0-b76f-14257a085afa
+
+	measure 'Total Movements YoY Color' =
+			
+			SWITCH(
+			    TRUE(),
+			    [Total Movements YoY %] > 0, "#16A34A",
+			    [Total Movements YoY %] < 0, "#DC2626",
+			    "#6B7280"
+			)
+		lineageTag: 296aee59-feed-430f-9076-9cbe420a0424
+
+	measure 'Containers per Day YoY Color' =
+			
+			SWITCH(
+			    TRUE(),
+			    [Containers per Day YoY %] > 0, "#16A34A",
+			    [Containers per Day YoY %] < 0, "#DC2626",
+			    "#6B7280"
+			)
+		lineageTag: d018baf6-0cb4-45ff-8edc-83d24f76a337
+
+	measure 'Avg Move Duration YoY Color' =
+			
+			SWITCH(
+			    TRUE(),
+			    [Avg Move Duration YoY %] < 0, "#16A34A",
+			    [Avg Move Duration YoY %] > 0, "#DC2626",
+			    "#6B7280"
+			)
+		lineageTag: 46bcfebf-c289-4e3b-a177-9152f7befa61
+
+	measure 'Total Containers YoY Label' =
+			
+			VAR _YoY = [Total Containers YoY %]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(_YoY), BLANK(),
+			        _YoY > 0, "▲ " & FORMAT(_YoY, "0.00%"),
+			        _YoY < 0, "▼ " & FORMAT(ABS(_YoY), "0.00%"),
+			        "— 0.00%"
+			    )
+		lineageTag: 6f787343-d52d-409a-9004-fe86cfb3a23b
+
+	measure 'Total Movements YoY Label' =
+			
+			VAR _YoY = [Total Movements YoY %]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(_YoY), BLANK(),
+			        _YoY > 0, "▲ " & FORMAT(_YoY, "0.00%"),
+			        _YoY < 0, "▼ " & FORMAT(ABS(_YoY), "0.00%"),
+			        "— 0.00%"
+			    )
+		lineageTag: ede38439-9e10-4c72-bce6-15f9c01afa09
+
+	measure 'Avg Move Duration YoY Label' =
+			
+			VAR _YoY = [Avg Move Duration YoY %]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(_YoY), BLANK(),
+			        _YoY > 0, "▲ " & FORMAT(_YoY, "0.00%"),
+			        _YoY < 0, "▼ " & FORMAT(ABS(_YoY), "0.00%"),
+			        "— 0.00%"
+			    )
+		lineageTag: d9a2e92f-8bc3-45b8-9824-a55fb4e1c5b8
+
+	measure 'Containers per Day YoY Label' =
+			
+			VAR _YoY = [Containers per Day YoY %]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(_YoY), BLANK(),
+			        _YoY > 0, "▲ " & FORMAT(_YoY, "0.00%"),
+			        _YoY < 0, "▼ " & FORMAT(ABS(_YoY), "0.00%"),
+			        "— 0.00%"
+			    )
+		lineageTag: 7bfcacc0-5e92-45fd-8274-df134795d1f7
+
+	column _Dummy
+		formatString: 0
+		lineageTag: c19e042c-1d61-4e24-a757-f1840c6d221f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [_Dummy]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Format_Measures = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "_Dummy", INTEGER,
+				    {
+				        { 1 }
+				    }
+				)
+
+	annotation PBI_Id = 3ef6cbbd91b441d09c391693b8d26b33
+

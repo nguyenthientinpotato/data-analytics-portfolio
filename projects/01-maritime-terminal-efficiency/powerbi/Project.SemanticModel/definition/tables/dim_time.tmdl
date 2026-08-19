@@ -1,0 +1,135 @@
+table dim_time
+	lineageTag: 9bb08e7c-2445-4d6e-a24b-31ae26d72eeb
+
+	column date_id
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: da596186-c139-4fbd-859a-4c140209d502
+		summarizeBy: none
+		sourceColumn: date_id
+
+		variation Variation
+			isDefault
+			relationship: 279c668d-c64d-48ac-a5cd-3aad2975be8a
+			defaultHierarchy: LocalDateTable_423f0feb-832b-41d8-9133-ae28af97c06a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fiscal_year
+		dataType: int64
+		formatString: 0
+		lineageTag: b07c79d8-6087-4af9-b959-4c490fcd7d57
+		summarizeBy: sum
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: cb7dd344-9830-46aa-8f66-56622f19d9b3
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 02620b96-5e7c-4e6d-bb42-b8865890b1a1
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column week
+		dataType: int64
+		formatString: 0
+		lineageTag: 7fa4398f-4f12-4043-886e-ef002c8bc401
+		summarizeBy: sum
+		sourceColumn: week
+
+		annotation SummarizationSetBy = Automatic
+
+	column shift
+		dataType: string
+		lineageTag: d05fc23b-b911-4131-9b91-141a4e263566
+		summarizeBy: none
+		sourceColumn: shift
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month' =
+			
+			FORMAT(dim_time[date_id], "YYYY-MM")
+		lineageTag: 63b4dbb7-1633-4dc7-801c-ac9c87939dd2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Suez Phase' =
+			
+			SWITCH(
+			    TRUE(),
+			
+			    dim_time[date_id] >= DATE(2021,1,26)
+			        && dim_time[date_id] <= DATE(2021,3,22),
+			        "1. Pre-Disruption",
+			
+			    dim_time[date_id] >= DATE(2021,3,23)
+			        && dim_time[date_id] <= DATE(2021,3,29),
+			        "2. Disruption",
+			
+			    dim_time[date_id] >= DATE(2021,3,30)
+			        && dim_time[date_id] <= DATE(2021,5,24),
+			        "3. Recovery",
+			
+			    "Outside Window"
+			)
+		lineageTag: 981632b9-0280-4aca-b7e8-a35382854e89
+		summarizeBy: none
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week Start' =
+			
+			dim_time[date_id]
+			    - WEEKDAY(dim_time[date_id], 2)
+			    + 1
+		formatString: General Date
+		lineageTag: fff6855f-53f0-4824-a42b-17b34fd1a1a0
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: ca4221d1-216e-461d-b7d5-8d6055571c95
+			defaultHierarchy: LocalDateTable_3b83b1ec-f641-43c3-9711-c7aff407f61e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week Label' =
+			
+			FORMAT(dim_time[Week Start], "dd-mm")
+		lineageTag: 3e8f3826-ad14-4ca2-9211-f46595957ffa
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_time = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\nguye\OneDrive\Desktop\Study\5. Power BI\Mar-Apr-2026-DataDNA-Dataset-Challenge-International-Maritime-Logistics-Terminal-Efficiency\International Maritime Logistics Terminal Efficiency\data\dim_time.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"date_id", type date}, {"fiscal_year", Int64.Type}, {"quarter", Int64.Type}, {"month", Int64.Type}, {"week", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

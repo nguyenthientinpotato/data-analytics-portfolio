@@ -134,12 +134,14 @@ SWITCH(
 ## 8. Repository Structure
 
 ```
-├── assets/                                # Dashboard page screenshots
-├── data/                                  # Raw CSV relational datasets
-├── docs/                                  # Business context, Data Dictionary & DAX Documentation
-├── TinNguyen_Mar_Apr2026_Challenge.pbix   # Power BI report file
-└── README.md                              # Project documentation
+├── assets/      # Dashboard page screenshots
+├── data/        # Raw CSV relational datasets
+├── docs/        # Business context, Data Dictionary & DAX Documentation
+├── powerbi/     # Power BI project source: .pbip, report layout & semantic model
+└── README.md    # Project documentation
 ```
+
+**To open the report:** launch `powerbi/TinNguyen_Mar_Apr2026_Challenge.pbip` in Power BI Desktop. The queries read the CSVs in `data/` straight from this repository over HTTPS, so Refresh works without editing a single path.
 
 ---
 

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "78c038e032a55a0e1406",
+  "position": {
+    "x": 691.25,
+    "y": 26.25,
+    "z": 15000,
+    "height": 49.583339691162109,
+    "width": 588.75,
+    "tabOrder": 15000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Operations average ",
+                    "textStyle": {
+                      "fontSize": "10.5pt",
+                      "color": "#1e5d8f"
+                    }
+                  },
+                  {
+                    "value": "501 hours",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "10.5pt",
+                      "color": "#1e5d8f"
+                    }
+                  },
+                  {
+                    "value": " per movement - ",
+                    "textStyle": {
+                      "fontSize": "10.5pt",
+                      "color": "#1e5d8f"
+                    }
+                  },
+                  {
+                    "value": "75 hours",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "10.5pt",
+                      "color": "#1e5d8f"
+                    }
+                  },
+                  {
+                    "value": " above the ",
+                    "textStyle": {
+                      "fontSize": "10.5pt",
+                      "color": "#1e5d8f"
+                    }
+                  },
+                  {
+                    "value": "426-hour",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "10.5pt",
+                      "color": "#1e5d8f"
+                    }
+                  },
+                  {
+                    "value": " target required to achieve the ",
+                    "textStyle": {
+                      "fontSize": "10.5pt",
+                      "color": "#1e5d8f"
+                    }
+                  },
+                  {
+                    "value": "15%",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "10.5pt",
+                      "color": "#1e5d8f"
+                    }
+                  },
+                  {
+                    "value": " reduction goal.",
+                    "textStyle": {
+                      "fontSize": "10.5pt",
+                      "color": "#1e5d8f"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

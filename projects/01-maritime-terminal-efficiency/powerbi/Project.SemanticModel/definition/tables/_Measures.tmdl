@@ -1,0 +1,474 @@
+table _Measures
+	lineageTag: b5d0cc42-fddc-409e-a0ca-67c7ece2d58e
+
+	measure 'Avg Containers per Movement' =
+			
+			DIVIDE(
+			    [Total Containers],
+			    [Total Movements]
+			)
+		lineageTag: 1d889c5e-36fe-4e1f-bc17-645e95bdd0c1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Move Duration' =
+			
+			AVERAGE(fact_cargo_movements[move_duration])
+		formatString: 0
+		lineageTag: 336f92bc-5c19-45ff-a6cd-767d76ad4fff
+
+	measure 'Containers per Day' =
+			
+			DIVIDE(
+			    [Total Containers],
+			    [Total Movement Hours] / 24
+			)
+		lineageTag: 58ff639b-eab7-4bcf-b609-f1d23dc479ad
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Target Avg Duration' =
+			
+			[Avg Move Duration] * 0.85
+		lineageTag: 86fd8d26-4fc9-4048-9784-11141d8dce6d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Containers' = SUM(fact_cargo_movements[container_count])
+		formatString: 0.00
+		lineageTag: 149fccea-703b-471f-b1e0-9902ac7f35d5
+
+	measure 'Total Movement Hours' =
+			
+			SUM(fact_cargo_movements[move_duration])
+		lineageTag: a0503188-eac2-4e05-b0ff-73aca714190b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Movements' =
+			
+			COUNTROWS(fact_cargo_movements)
+		formatString: 0.00
+		lineageTag: 24b437b1-b0e6-49d6-8bdd-af2033d0d838
+
+	measure 'Total Containers PY' =
+			
+			CALCULATE(
+			    [Total Containers],
+			    DATEADD(
+			        dim_time[date_id],
+			        -1,
+			        YEAR
+			    )
+			)
+		formatString: 0.00
+		lineageTag: f16731aa-a49f-40d7-bb8e-29b5bfbb0f84
+
+	measure 'Total Containers YoY %' =
+			
+			DIVIDE(
+			    [Total Containers] - [Total Containers PY],
+			    [Total Containers PY]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 6940e6df-0da4-47bb-a5b5-20d12b380f3a
+
+	measure 'Total Movements PY' =
+			
+			CALCULATE(
+			    [Total Movements],
+			    DATEADD(
+			        dim_time[date_id],
+			        -1,
+			        YEAR
+			    )
+			)
+		formatString: 0.00
+		lineageTag: bdacd823-f985-475b-bef3-0bb81962e32b
+
+	measure 'Total Movements YoY %' =
+			
+			DIVIDE(
+			    [Total Movements] - [Total Movements PY],
+			    [Total Movements PY]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 97828459-a5fb-405b-b1b4-44f94bd352be
+
+	measure 'Avg Move Duration PY' =
+			
+			CALCULATE(
+			    [Avg Move Duration],
+			    DATEADD(
+			        dim_time[date_id],
+			        -1,
+			        YEAR
+			    )
+			)
+		formatString: 0.00
+		lineageTag: b9b37a7b-c899-4d87-a380-54fa64c618bb
+
+	measure 'Avg Move Duration YoY %' =
+			
+			DIVIDE(
+			    [Avg Move Duration] - [Avg Move Duration PY],
+			    [Avg Move Duration PY]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 6f05cf22-3e9d-43bf-ac2c-acd808d07405
+
+	measure 'Containers per Day PY' =
+			
+			CALCULATE(
+			    [Containers per Day],
+			    DATEADD(
+			        dim_time[date_id],
+			        -1,
+			        YEAR
+			    )
+			)
+		formatString: 0.00
+		lineageTag: 3982998d-d6b0-4cbb-bb24-f7c6d2cd0637
+
+	measure 'Containers per Day YoY %' =
+			
+			DIVIDE(
+			    [Containers per Day] - [Containers per Day PY],
+			    [Containers per Day PY]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d75e7bae-50d4-4e60-9574-9caddabcdc11
+
+	measure 'Median Move Duration' =
+			
+			MEDIAN(fact_cargo_movements[move_duration])
+		lineageTag: c64dbf30-0c40-4810-8e7b-218cceeda9cb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Suez Pre Avg Duration' =
+			
+			CALCULATE(
+			    [Avg Move Duration],
+			    REMOVEFILTERS(dim_time),
+			    dim_time[date_id] >= DATE(2021,1,26),
+			    dim_time[date_id] <= DATE(2021,3,22)
+			)
+		lineageTag: fdc9f9b6-057d-4593-9418-8debc26773f3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Suez Event Avg Duration' =
+			
+			CALCULATE(
+			    [Avg Move Duration],
+			    REMOVEFILTERS(dim_time),
+			    dim_time[date_id] >= DATE(2021,3,23),
+			    dim_time[date_id] <= DATE(2021,3,29)
+			)
+		lineageTag: 055026bb-7026-4c48-b499-876784a067d6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Suez Recovery Avg Duration' =
+			
+			CALCULATE(
+			    [Avg Move Duration],
+			    REMOVEFILTERS(dim_time),
+			    dim_time[date_id] >= DATE(2021,3,30),
+			    dim_time[date_id] <= DATE(2021,5,24)
+			)
+		lineageTag: 49172fc4-836e-4d5a-9d1f-8f754688ab4c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Suez Duration Impact %' =
+			
+			DIVIDE(
+			    [Suez Event Avg Duration]
+			        - [Suez Pre Avg Duration],
+			    [Suez Pre Avg Duration]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: df9870a6-e56f-4f7c-b139-a29a52999dfd
+
+	measure 'Avg Daily Containers' =
+			
+			DIVIDE(
+			    [Total Containers],
+			    DISTINCTCOUNT(dim_time[date_id])
+			)
+		lineageTag: 7b0967bf-502b-4711-82e2-cdaef5d4696e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Suez Pre Avg Daily Containers' =
+			
+			CALCULATE(
+			    [Avg Daily Containers],
+			    REMOVEFILTERS(dim_time),
+			    dim_time[date_id] >= DATE(2021,1,26),
+			    dim_time[date_id] <= DATE(2021,3,22)
+			)
+		lineageTag: 5bde77e9-9f58-4b87-b964-2e45db1f6031
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Suez Event Avg Daily Containers' =
+			
+			CALCULATE(
+			    [Avg Daily Containers],
+			    REMOVEFILTERS(dim_time),
+			    dim_time[date_id] >= DATE(2021,3,23),
+			    dim_time[date_id] <= DATE(2021,3,29)
+			)
+		lineageTag: 33db2416-b70a-44b3-9872-603185ad536f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Suez Daily Container Impact %' =
+			
+			DIVIDE(
+			    [Suez Event Avg Daily Containers]
+			        - [Suez Pre Avg Daily Containers],
+			    [Suez Pre Avg Daily Containers]
+			)
+		lineageTag: 9a027ac7-17a9-4419-8894-e54c6ea24f02
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Suez Pre Baseline Line' =
+			
+			[Suez Pre Avg Duration]
+		lineageTag: 43405aa4-be48-4e50-9fbb-081aa26e13d0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Active Terminals' =
+			
+			DISTINCTCOUNT(
+			    fact_cargo_movements[terminal_id]
+			)
+		formatString: 0
+		lineageTag: 4039575d-2b6d-4870-ab70-b05d135f2561
+
+	measure 'Avg Containers per Terminal' =
+			
+			AVERAGEX(
+			    VALUES(dim_terminal[terminal_id]),
+			    [Total Containers]
+			)
+		lineageTag: 4537f772-04a1-44b6-b713-6af9edee6732
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Network Avg Duration' =
+			
+			CALCULATE(
+			    [Avg Move Duration],
+			    ALLSELECTED(dim_terminal)
+			)
+		lineageTag: 0254c68f-c622-4fb4-974c-295406e1ae2c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Terminal Action' =
+			
+			VAR _Load =
+			    [Total Containers]
+			
+			VAR _AvgLoad =
+			    [Avg Containers per Terminal]
+			
+			VAR _Duration =
+			    [Avg Move Duration]
+			
+			VAR _NetworkDuration =
+			    [Network Avg Duration]
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			
+			    _Load >= _AvgLoad
+			        && _Duration >= _NetworkDuration,
+			        "Capacity / Process Review",
+			
+			    _Load >= _AvgLoad
+			        && _Duration < _NetworkDuration,
+			        "Efficient Core",
+			
+			    _Load < _AvgLoad
+			        && _Duration >= _NetworkDuration,
+			        "Process Review",
+			
+			    _Load < _AvgLoad
+			        && _Duration < _NetworkDuration,
+			        "Reallocation Candidate"
+			)
+		lineageTag: 0ca2d64e-7363-4547-9c16-511f522faf5f
+
+	measure 'High Risk Terminal Flag' =
+			
+			VAR _Load =
+			    [Total Containers]
+			
+			VAR _AvgLoad =
+			    [Avg Containers per Terminal]
+			
+			VAR _Duration =
+			    [Avg Move Duration]
+			
+			VAR _NetworkDuration =
+			    [Network Avg Duration]
+			
+			RETURN
+			IF(
+			    _Load >= _AvgLoad
+			        && _Duration >= _NetworkDuration,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 24d8fad7-6379-4f91-9a5c-ce04060dcef1
+
+	measure 'High Risk Terminals' =
+			
+			SUMX(
+			    VALUES(dim_terminal[terminal_id]),
+			    [High Risk Terminal Flag]
+			)
+		formatString: 0
+		lineageTag: cd4e461b-08cf-4991-8c93-74cc86473a13
+
+	measure 'High Risk Terminal Rate' =
+			
+			DIVIDE(
+			    [High Risk Terminals],
+			    [Active Terminals]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: dd15f49d-30d4-4078-bf2d-4f023c151a5d
+
+	measure 'Day Avg Duration' =
+			
+			CALCULATE(
+			    [Avg Move Duration],
+			    dim_time[shift] = "Day"
+			)
+		lineageTag: b841152c-6bc6-4bee-bcd6-3be1afac4f50
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Night Avg Duration' =
+			
+			CALCULATE(
+			    [Avg Move Duration],
+			    dim_time[shift] = "Night"
+			)
+		lineageTag: 529c67ba-490b-472f-8293-517d9b07206b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Night vs Day Gap' =
+			
+			[Night Avg Duration] - [Day Avg Duration]
+		lineageTag: 38144ea7-3307-4af0-847b-6051e083cd9a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Worst Vessel Category' =
+			
+			VAR _tbl =
+			    ADDCOLUMNS(
+			        VALUES(dim_vessel[vessel_category]),
+			        "@Duration", [Avg Move Duration]
+			    )
+			RETURN
+			    MAXX(
+			        TOPN(
+			            1,
+			            _tbl,
+			            [@Duration],
+			            DESC
+			        ),
+			        dim_vessel[vessel_category]
+			    )
+		lineageTag: 03725229-3caf-4e3b-bfed-b73f1f5b3d13
+
+	measure 'Gap to Target' =
+			
+			[Avg Move Duration] - [Target Avg Duration]
+		lineageTag: 469d0009-cbe2-4180-aae7-c20ca656a8ac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Global Avg Duration' =
+			
+			CALCULATE(
+			    [Avg Move Duration],
+			    REMOVEFILTERS(dim_terminal[regional_hub])
+			)
+		lineageTag: fce66dd8-622a-4c97-8a76-fa6915e36c39
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Duration vs Global %' =
+			
+			DIVIDE(
+			    [Avg Move Duration] - [Global Avg Duration],
+			    [Global Avg Duration]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0e2b26f8-61c9-4775-9de2-a914c2aa0310
+
+	measure 'P90 Move Duration' =
+			
+			PERCENTILEX.INC(
+			    ALLSELECTED(fact_cargo_movements[move_duration]),
+			    fact_cargo_movements[move_duration],
+			    0.9
+			)
+		lineageTag: 2ba58e63-1410-4d00-8f28-77360507dfac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'High Duration Flag' =
+			
+			IF(
+			    MAX(fact_cargo_movements[move_duration]) > [P90 Move Duration],
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 42fddca2-09ea-4157-b12c-06b5f36654aa
+
+	measure 'Duration vs P90' =
+			
+			SUM(fact_cargo_movements[move_duration]) - [P90 Move Duration]
+		lineageTag: bb51f46f-3de5-4cc7-953f-fbaa07b1b800
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _Dummy
+		formatString: 0
+		lineageTag: 28afadd9-f1e9-4c43-8791-bb5570f1cb35
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [_Dummy]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "_Dummy", INTEGER,
+				    {
+				        { 1 }
+				    }
+				)
+
+	annotation PBI_Id = 03338dc664074988ba1e96a1b2c5d4c3
+
