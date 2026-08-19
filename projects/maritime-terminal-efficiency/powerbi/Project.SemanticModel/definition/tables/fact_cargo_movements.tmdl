@@ -120,7 +120,7 @@ table fact_cargo_movements
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\nguye\OneDrive\Desktop\Study\5. Power BI\Mar-Apr-2026-DataDNA-Dataset-Challenge-International-Maritime-Logistics-Terminal-Efficiency\International Maritime Logistics Terminal Efficiency\data\fact_cargo_movements.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/nguyenthientinpotato/data-analytics-portfolio/main/projects/maritime-terminal-efficiency/data/fact_cargo_movements.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"vessel_id", Int64.Type}, {"terminal_id", Int64.Type}, {"container_count", Int64.Type}, {"date_id", type date}, {"move_duration", type number}})
 				in

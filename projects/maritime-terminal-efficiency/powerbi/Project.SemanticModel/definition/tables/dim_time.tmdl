@@ -123,7 +123,7 @@ table dim_time
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\nguye\OneDrive\Desktop\Study\5. Power BI\Mar-Apr-2026-DataDNA-Dataset-Challenge-International-Maritime-Logistics-Terminal-Efficiency\International Maritime Logistics Terminal Efficiency\data\dim_time.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/nguyenthientinpotato/data-analytics-portfolio/main/projects/maritime-terminal-efficiency/data/dim_time.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"date_id", type date}, {"fiscal_year", Int64.Type}, {"quarter", Int64.Type}, {"month", Int64.Type}, {"week", Int64.Type}})
 				in
